@@ -76,7 +76,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                inventorycontrolsystem.inventorycontrolsystem/inventorycontrolsystem.inventorycontrolsystem.HelloApplication
+                                inventorycontrolsystem.inventorycontrolsystem/inventorycontrolsystem.inventorycontrolsystem.ICSItemViewApp
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

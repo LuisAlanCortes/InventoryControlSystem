@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorycontrolsystem.inventorycontrolsystem.ICSItemViewController">
+   <top>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="74.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TextField fx:id="tFSearchBar" layoutX="451.0" layoutY="6.0" promptText="Search" style="-fx-border-color: grey;" />
+                  <TextField fx:id="tFwindowTitle" layoutX="14.0" layoutY="10.0" text="Item Library" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Button fx:id="bTItemLibrary" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#bTItemLibraryPush" text="Item Library" />
+                  <Button fx:id="bTPushOverstock" layoutX="103.0" layoutY="11.0" mnemonicParsing="false" onAction="#bTPushOverstockPush" text="Push Overstock" />
+                  <Button fx:id="bTCategories" layoutX="206.0" layoutY="11.0" mnemonicParsing="false" onAction="#bTCategoriesPush" text="Categories" />
+                  <Button fx:id="bTPricingUpdates" layoutX="292.0" layoutY="11.0" mnemonicParsing="false" onAction="#bTPricingUpdatesPush" text="Pricing Updates" />
+                  <Button fx:id="btMerchandising" layoutX="404.0" layoutY="11.0" mnemonicParsing="false" onAction="#btMerchandisingPush" text="Merchandising" />
+                  <Button fx:id="bTSettings" layoutX="508.0" layoutY="11.0" mnemonicParsing="false" onAction="#bTSettingsPush" text="Settings" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane layoutX="14.0" layoutY="13.0" prefHeight="301.0" prefWidth="574.0">
+               <children>
+                  <TableView prefHeight="301.0" prefWidth="576.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Product" />
+                      <TableColumn prefWidth="75.0" text="Category" />
+                        <TableColumn prefWidth="92.79998779296875" text="BOH" />
+                        <TableColumn prefWidth="75.0" text="SKU" />
+                        <TableColumn prefWidth="75.0" text="Location" />
+                        <TableColumn prefWidth="75.0" text="Cost" />
+                        <TableColumn prefWidth="75.0" text="Price" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
