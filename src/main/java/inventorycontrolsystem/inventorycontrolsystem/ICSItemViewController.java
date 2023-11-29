@@ -1,6 +1,9 @@
 package inventorycontrolsystem.inventorycontrolsystem;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,96 +17,70 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ICSItemViewController implements Initializable {
 
     @FXML
     private TableView<InventoryItems> InventoryTable;
-    @FXML
-    private TableColumn<InventoryItems, Integer> AisleLocation;
-
-    @FXML
-    private TableColumn<InventoryItems, Integer> BrandID;
-
-    @FXML
-    private TableColumn<InventoryItems, String> Category;
-
-    @FXML
-    private TableColumn<InventoryItems, Double> Cost;
-
-    @FXML
-    private TableColumn<InventoryItems, Double> Price;
-
-    @FXML
-    private TableColumn<InventoryItems, Integer> ProductID;
-
-    @FXML
-    private TableColumn<InventoryItems, String> ProductName;
-
-    @FXML
-    private TableColumn<InventoryItems, Integer> Quantity;
-
-    @FXML
-    private TableColumn<InventoryItems, Integer> ReorderLevel;
-
-    @FXML
-    private TableColumn<InventoryItems, String> SKU;
-
-    @FXML
-    private TableColumn<InventoryItems, Integer> Sales;
-
+        @FXML
+        private TableColumn<InventoryItems, Integer> AisleLocation;
+        @FXML
+        private TableColumn<InventoryItems, Integer> BrandID;
+        @FXML
+        private TableColumn<InventoryItems, String> Category;
+        @FXML
+        private TableColumn<InventoryItems, Double> Cost;
+        @FXML
+        private TableColumn<InventoryItems, Double> Price;
+        @FXML
+        private TableColumn<InventoryItems, Integer> ProductID;
+        @FXML
+        private TableColumn<InventoryItems, String> ProductName;
+        @FXML
+        private TableColumn<InventoryItems, Integer> Quantity;
+        @FXML
+        private TableColumn<InventoryItems, Integer> ReorderLevel;
+        @FXML
+        private TableColumn<InventoryItems, String> SKU;
+        @FXML
+        private TableColumn<InventoryItems, Integer> Sales;
     @FXML
     private TextField tfAisleLocation;
-
     @FXML
     private TextField tfBrandID;
-
     @FXML
     private TextField tfCategory;
-
     @FXML
     private TextField tfCost;
-
     @FXML
     private TextField tfPrice;
-
     @FXML
     private TextField tfProductID;
-
     @FXML
     private TextField tfProductName;
-
     @FXML
     private TextField tfQuantity;
-
     @FXML
     private TextField tfReorderLevel;
-
     @FXML
     private TextField tfSKU;
-
     @FXML
     private TextField tfSales;
-
     @FXML
     private Button bTCategories;
-
     @FXML
     private Button bTItemLibrary;
-
     @FXML
     private Button bTPricingUpdates;
-
     @FXML
     private Button bTPushOverstock;
-
     @FXML
     private Button bTSettings;
-
     @FXML
     private Button btMerchandising;
-
     @FXML
     private TextField tFSearchBar;
     @FXML
@@ -155,7 +132,7 @@ public class ICSItemViewController implements Initializable {
 
     @FXML
     void btDeletePush(ActionEvent event) {
-
+        deleteDatabaseEntry();
     }
 
     public void addToDatabase() { // Add inputted object to the database after add button push
@@ -176,6 +153,7 @@ public class ICSItemViewController implements Initializable {
             preparedStatement.setString(10, tfCost.getText());
             preparedStatement.setString(11, tfSales.getText());
             preparedStatement.execute();
+            updateTableView();
         }catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -204,32 +182,13 @@ public class ICSItemViewController implements Initializable {
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement); // Run statement
             preparedStatement.execute();
+            updateTableView();
         }catch (Exception e){
             throw new RuntimeException(e);
         }
     }
 
-    @FXML
-    void setSelectedTableValues(MouseEvent event) {
-        int index = InventoryTable.getSelectionModel().getSelectedIndex();
-        if (index <= -1) {
-            return;
-        }
-        tfProductID.setText(ProductID.getCellData(index).toString());
-        tfSKU.setText(SKU.getCellData(index));
-        tfProductName.setText(ProductName.getCellData(index));
-        tfBrandID.setText(BrandID.getCellData(index).toString());
-        tfCategory.setText(Category.getCellData(index));
-        tfAisleLocation.setText(AisleLocation.getCellData(index).toString());
-        tfQuantity.setText(Quantity.getCellData(index).toString());
-        tfReorderLevel.setText(ReorderLevel.getCellData(index).toString());
-        tfPrice.setText(Price.getCellData(index).toString());
-        tfCost.setText(Cost.getCellData(index).toString());
-        tfSales.setText(Sales.getCellData(index).toString());
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) { // Initialize table view with values from database
+    public void updateTableView() { // Initialize table view with values from database
         ObservableList<InventoryItems> observableList;
         ProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
         SKU.setCellValueFactory(new PropertyValueFactory<>("skuNumber"));
@@ -245,5 +204,71 @@ public class ICSItemViewController implements Initializable {
 
         observableList = SQLConnector.getDataInventoryItems(); // Get values from database using SQLConnector Class
         InventoryTable.setItems(observableList); // Set table values using values pulled
+        tFSearchBar.textProperty().addListener((observable, oldValue, newValue) -> InventoryTable.setItems(filterList(observableList, newValue))); // Update table according to search
+    }
+
+    @FXML
+    void setSelectedTableValues(MouseEvent event) { // When user selects table value, fill text fields automatically
+        int index = InventoryTable.getSelectionModel().getSelectedIndex();
+        if (index <= -1) { // Ignore if none are selected are
+            return;
+        }
+        tfProductID.setText(ProductID.getCellData(index).toString()); // Update all
+        tfSKU.setText(SKU.getCellData(index));
+        tfProductName.setText(ProductName.getCellData(index));
+        tfBrandID.setText(BrandID.getCellData(index).toString());
+        tfCategory.setText(Category.getCellData(index));
+        tfAisleLocation.setText(AisleLocation.getCellData(index).toString());
+        tfQuantity.setText(Quantity.getCellData(index).toString());
+        tfReorderLevel.setText(ReorderLevel.getCellData(index).toString());
+        tfPrice.setText(Price.getCellData(index).toString());
+        tfCost.setText(Cost.getCellData(index).toString());
+        tfSales.setText(Sales.getCellData(index).toString());
+    }
+
+    public void deleteDatabaseEntry() { // Delete entry based on Product ID
+        Connection connection = SQLConnector.connectToDB();
+        String sqlStatement = "DELETE FROM inventorysystemdatabase WHERE ProductID = ?";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setString(1, tfProductID.getText());
+            preparedStatement.execute();
+            updateTableView();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Functionality for search bar, compare each value of the class to the search text.
+    // This is called everytime the user types in the search box
+    private boolean searchTextForMatch(InventoryItems inventoryItems, String searchText) {
+        searchText = searchText.toLowerCase();
+        return (Integer.valueOf(inventoryItems.getProductID()).toString().equals(searchText) ||
+                inventoryItems.getSkuNumber().toLowerCase().contains(searchText) ||
+                inventoryItems.getProductName().toLowerCase().contains(searchText) ||
+                Integer.valueOf(inventoryItems.getBrandID()).toString().equals(searchText) ||
+                inventoryItems.getCategory().toLowerCase().contains(searchText) ||
+                Integer.valueOf(inventoryItems.getAisleLocation()).toString().equals(searchText) ||
+                Integer.valueOf(inventoryItems.getQuantity()).toString().equals(searchText) ||
+                Double.valueOf(inventoryItems.getPrice()).toString().equals(searchText) ||
+                Double.valueOf(inventoryItems.getCost()).toString().equals(searchText) ||
+                Integer.valueOf(inventoryItems.getSales()).toString().equals(searchText)
+        );
+    }
+
+    // Filter list to filter through table and search each column for text typed into search bar
+    private ObservableList<InventoryItems> filterList(List<InventoryItems> list, String searchText) {
+        List<InventoryItems> filteredList = new ArrayList<>(); // Filter list
+        for (InventoryItems inventoryItems : list) { // Loop through all items in class
+            if (searchTextForMatch(inventoryItems, searchText)) { // Search each column for entered text
+                filteredList.add(inventoryItems); // Add matches to new tableview filter list
+            }
+        }
+        return FXCollections.observableList(filteredList);// Display new filtered items table
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) { // Initialize table view with values from database
+        updateTableView();
     }
 }

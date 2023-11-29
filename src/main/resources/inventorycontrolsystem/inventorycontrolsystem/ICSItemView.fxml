@@ -15,18 +15,17 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TextField fx:id="tFSearchBar" layoutX="1172.0" layoutY="6.0" promptText="Search" style="-fx-border-color: grey;" />
                   <Text layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Library" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="95.0" prefWidth="1338.0">
                <children>
                   <Button fx:id="bTItemLibrary" layoutX="14.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTItemLibraryPush" text="Item Library" />
-                  <Button fx:id="bTPushOverstock" layoutX="103.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTPushOverstockPush" text="Push Overstock" />
-                  <Button fx:id="bTCategories" layoutX="206.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTCategoriesPush" text="Categories" />
-                  <Button fx:id="bTPricingUpdates" layoutX="292.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTPricingUpdatesPush" text="Pricing Updates" />
-                  <Button fx:id="btMerchandising" layoutX="404.0" layoutY="4.0" mnemonicParsing="false" onAction="#btMerchandisingPush" text="Merchandising" />
-                  <Button fx:id="bTSettings" layoutX="508.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTSettingsPush" text="Settings" />
+                  <Button fx:id="bTPushOverstock" layoutX="112.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTPushOverstockPush" text="Push Overstock" />
+                  <Button fx:id="btMerchandising" layoutX="451.0" layoutY="4.0" mnemonicParsing="false" onAction="#btMerchandisingPush" text="Merchandising" />
+                  <Button fx:id="bTSettings" layoutX="1260.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTSettingsPush" text="Settings" />
+                  <Button fx:id="bTCategories" layoutX="233.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTCategoriesPush" text="Categories" />
+                  <Button fx:id="bTPricingUpdates" layoutX="326.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTPricingUpdatesPush" text="Pricing Updates" />
                </children>
             </AnchorPane>
         </items>
@@ -55,9 +54,9 @@
                </children>
             </AnchorPane>
             <TextField fx:id="tfProductID" layoutX="15.0" layoutY="191.0" prefHeight="26.0" prefWidth="230.0" promptText="Product ID" />
-            <Button fx:id="bTAdd" layoutX="80.0" layoutY="18.0" mnemonicParsing="false" onAction="#bTAddPush" text="Add" />
-            <Button fx:id="bTUpdate" layoutX="78.0" layoutY="67.0" mnemonicParsing="false" onAction="#bTUpdatePush" text="Update" />
-            <Button fx:id="bTDelete" layoutX="80.0" layoutY="116.0" mnemonicParsing="false" onAction="#btDeletePush" text="Delete" />
+            <Button fx:id="bTAdd" layoutX="22.0" layoutY="118.0" mnemonicParsing="false" onAction="#bTAddPush" text="Add" />
+            <Button fx:id="bTUpdate" layoutX="105.0" layoutY="118.0" mnemonicParsing="false" onAction="#bTUpdatePush" text="Update" />
+            <Button fx:id="bTDelete" layoutX="191.0" layoutY="118.0" mnemonicParsing="false" onAction="#btDeletePush" text="Delete" />
             <TextField fx:id="tfSKU" layoutX="15.0" layoutY="241.0" prefHeight="26.0" prefWidth="230.0" promptText="SKU" />
             <TextField fx:id="tfProductName" layoutX="15.0" layoutY="290.0" prefHeight="26.0" prefWidth="230.0" promptText="Product Name" />
             <TextField fx:id="tfBrandID" layoutX="15.0" layoutY="345.0" prefHeight="26.0" prefWidth="230.0" promptText="Brand ID" />
@@ -68,6 +67,7 @@
             <TextField fx:id="tfCost" layoutX="15.0" layoutY="596.0" prefHeight="26.0" prefWidth="230.0" promptText="Cost" />
             <TextField fx:id="tfSales" layoutX="15.0" layoutY="646.0" prefHeight="26.0" prefWidth="230.0" promptText="Sales" />
             <TextField fx:id="tfReorderLevel" layoutX="15.0" layoutY="695.0" prefHeight="26.0" prefWidth="230.0" promptText="Reorder Level" />
+            <TextField fx:id="tFSearchBar" layoutX="57.0" layoutY="65.0" promptText="Search" style="-fx-border-color: grey;" />
          </children>
       </AnchorPane>
    </center>
