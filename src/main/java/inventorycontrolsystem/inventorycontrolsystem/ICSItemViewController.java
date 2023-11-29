@@ -1,31 +1,54 @@
 package inventorycontrolsystem.inventorycontrolsystem;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.sql.*;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ICSItemViewController {
-    void initializeDB() {
-        try{
-            Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/inventorycontrolsystem",
-                    "root",
-                    "tiger"
-            );
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM inventorycontrolsystem.inventorysystemdatabase");
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString("ProductName"));
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
+public class ICSItemViewController implements Initializable {
 
+    @FXML
+    private TableView<InventoryItems> InventoryTable;
+    @FXML
+    private TableColumn<InventoryItems, Integer> AisleLocation;
+
+    @FXML
+    private TableColumn<InventoryItems, Integer> BrandID;
+
+    @FXML
+    private TableColumn<InventoryItems, String> Category;
+
+    @FXML
+    private TableColumn<InventoryItems, Double> Cost;
+
+    @FXML
+    private TableColumn<InventoryItems, Double> Price;
+
+    @FXML
+    private TableColumn<InventoryItems, Integer> ProductID;
+
+    @FXML
+    private TableColumn<InventoryItems, String> ProductName;
+
+    @FXML
+    private TableColumn<InventoryItems, Double> Quantity;
+
+    @FXML
+    private TableColumn<InventoryItems, Integer> ReorderLevel;
+
+    @FXML
+    private TableColumn<InventoryItems, String> SKU;
+
+    @FXML
+    private TableColumn<InventoryItems, Integer> Sales;
 
     @FXML
     private Button bTCategories;
@@ -47,12 +70,12 @@ public class ICSItemViewController {
 
     @FXML
     private TextField tFSearchBar;
-
     @FXML
-    private TextField tFwindowTitle;
-
-    public ICSItemViewController() throws SQLException {
-    }
+    private Button bTAdd;
+    @FXML
+    private Button bTUpdate;
+    @FXML
+    private Button bTDelete;
 
     @FXML
     void bTCategoriesPush(ActionEvent event) {
@@ -84,5 +107,37 @@ public class ICSItemViewController {
 
     }
 
+    @FXML
+    void bTAddPush(ActionEvent event) {
 
+    }
+
+    @FXML
+    void bTUpdatePush(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btDeletePush(ActionEvent event) {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) { // Initialize table view with values from database
+        ObservableList<InventoryItems> observableList;
+        ProductID.setCellValueFactory(new PropertyValueFactory<InventoryItems,Integer>("productID"));
+        SKU.setCellValueFactory(new PropertyValueFactory<InventoryItems, String>("sKU"));
+        ProductName.setCellValueFactory(new PropertyValueFactory<InventoryItems, String>("productName"));
+        BrandID.setCellValueFactory(new PropertyValueFactory<InventoryItems,Integer>("brandID"));
+        Category.setCellValueFactory(new PropertyValueFactory<InventoryItems, String>("category"));
+        AisleLocation.setCellValueFactory(new PropertyValueFactory<InventoryItems,Integer>("aisleLocation"));
+        Quantity.setCellValueFactory(new PropertyValueFactory<InventoryItems,Double>("aisleLocation"));
+        ReorderLevel.setCellValueFactory(new PropertyValueFactory<InventoryItems,Integer>("reorderLevel"));
+        Price.setCellValueFactory(new PropertyValueFactory<InventoryItems,Double>("price"));
+        Cost.setCellValueFactory(new PropertyValueFactory<InventoryItems,Double>("cost"));
+        Sales.setCellValueFactory(new PropertyValueFactory<InventoryItems,Integer>("sales"));
+
+        observableList = SQLConnector.getDataInventoryItems(); // Get values from database using SQLConnector Class
+        InventoryTable.setItems(observableList); // Set table values using values pulled
+    }
 }
