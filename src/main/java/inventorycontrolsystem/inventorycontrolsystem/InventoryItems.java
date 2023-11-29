@@ -3,7 +3,7 @@ package inventorycontrolsystem.inventorycontrolsystem;
 
 public class InventoryItems {
     private int productID;
-    private String sKU;
+    private String skuNumber;
     private String productName;
     private int brandID;
     private String category;
@@ -14,9 +14,9 @@ public class InventoryItems {
     private double cost;
     private int sales;
 
-    public InventoryItems(int productID, String sKU, String productName, int brandID, String category, int aisleLocation, int quantity, int reorderLevel, double price, double cost, int sales) {
+    public InventoryItems(int productID, String skuNumber, String productName, int brandID, String category, int aisleLocation, int quantity, int reorderLevel, double price, double cost, int sales) {
         this.productID = productID;
-        this.sKU = sKU;
+        this.skuNumber = skuNumber;
         this.productName = productName;
         this.brandID = brandID;
         this.category = category;
@@ -36,12 +36,12 @@ public class InventoryItems {
         this.productID = productID;
     }
 
-    public String getsKU() {
-        return sKU;
+    public String getSkuNumber() {
+        return skuNumber;
     }
 
-    public void setsKU(String sKU) {
-        this.sKU = sKU;
+    public void setSkuNumber(String skuNumber) {
+        this.skuNumber = skuNumber;
     }
 
     public String getProductName() {
