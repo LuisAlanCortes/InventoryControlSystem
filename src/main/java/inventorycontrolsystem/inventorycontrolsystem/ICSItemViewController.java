@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -22,7 +23,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ICSItemViewController implements Initializable {
-
+    @FXML
+    private AnchorPane anchorItemLibrary;
     @FXML
     private TableView<InventoryItems> InventoryTable;
         @FXML
@@ -70,17 +72,11 @@ public class ICSItemViewController implements Initializable {
     @FXML
     private TextField tfSales;
     @FXML
-    private Button bTCategories;
-    @FXML
     private Button bTItemLibrary;
     @FXML
     private Button bTPricingUpdates;
     @FXML
     private Button bTPushOverstock;
-    @FXML
-    private Button bTSettings;
-    @FXML
-    private Button btMerchandising;
     @FXML
     private TextField tFSearchBar;
     @FXML
@@ -89,50 +85,51 @@ public class ICSItemViewController implements Initializable {
     private Button bTUpdate;
     @FXML
     private Button bTDelete;
-
     @FXML
-    void bTCategoriesPush(ActionEvent event) {
-
-    }
+    private Button bTClear;
 
     @FXML
     void bTItemLibraryPush(ActionEvent event) {
 
     }
-
     @FXML
     void bTPricingUpdatesPush(ActionEvent event) {
 
     }
-
     @FXML
     void bTPushOverstockPush(ActionEvent event) {
-
+        pushOverstock();
     }
-
     @FXML
-    void bTSettingsPush(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btMerchandisingPush(ActionEvent event) {
-
+    void bTClearPush(ActionEvent event) {
+        clearTextFields();
     }
 
     @FXML
     void bTAddPush(ActionEvent event) {
         addToDatabase();
     }
-
     @FXML
     void bTUpdatePush(ActionEvent event) {
         updateDatabaseEntry();
     }
-
     @FXML
     void btDeletePush(ActionEvent event) {
         deleteDatabaseEntry();
+    }
+
+    private void clearTextFields() { // Clear text fields on button push
+        tfProductID.setText("");
+        tfSKU.setText("");
+        tfProductName.setText("");
+        tfBrandID.setText("");
+        tfCategory.setText("");
+        tfAisleLocation.setText("");
+        tfQuantity.setText("");
+        tfReorderLevel.setText("");
+        tfPrice.setText("");
+        tfCost.setText("");
+        tfSales.setText("");
     }
 
     public void addToDatabase() { // Add inputted object to the database after add button push
@@ -242,7 +239,7 @@ public class ICSItemViewController implements Initializable {
     // Functionality for search bar, compare each value of the class to the search text.
     // This is called everytime the user types in the search box
     private boolean searchTextForMatch(InventoryItems inventoryItems, String searchText) {
-        searchText = searchText.toLowerCase();
+        searchText = searchText.toLowerCase(); // Set text to lowercase automatically
         return (Integer.valueOf(inventoryItems.getProductID()).toString().equals(searchText) ||
                 inventoryItems.getSkuNumber().toLowerCase().contains(searchText) ||
                 inventoryItems.getProductName().toLowerCase().contains(searchText) ||
@@ -264,9 +261,21 @@ public class ICSItemViewController implements Initializable {
                 filteredList.add(inventoryItems); // Add matches to new tableview filter list
             }
         }
-        return FXCollections.observableList(filteredList);// Display new filtered items table
+        return FXCollections.observableList(filteredList);// Return new filtered items table to display
     }
 
+
+
+    private void pushOverstock() {
+        // If sales value changes for a item, add it to a new observable list to show items to push
+        ObservableList<InventoryItems> observableList;
+        observableList = SQLConnector.getDataInventoryItems(); // Get values from database using SQLConnector Class
+        Sales.textProperty().addListener((observable, oldValue, newValue) -> InventoryTable.setItems(filterList(observableList, newValue))); // Update table according to search
+    }
+
+    private void pricingUpdates() {
+        // If an items price is changed, add it to a new observable list to show items to change price labels on
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { // Initialize table view with values from database
         updateTableView();

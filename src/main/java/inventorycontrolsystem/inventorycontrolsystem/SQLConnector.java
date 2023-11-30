@@ -47,21 +47,3 @@ public class SQLConnector {
         return observableList;
     }
 }
-
-
-    //void connectToDB() {
-    //    try{
-    //        Connection connection = DriverManager.getConnection(
-    //                "jdbc:mysql://localhost:3306/inventorycontrolsystem",
-    //                "root",
-    //                "tiger"
-    //        );
-    //        Statement statement = connection.createStatement();
-    //        ResultSet resultSet = statement.executeQuery("SELECT * FROM inventorysystemdatabase");
-    //        while (resultSet.next()) {
-    //            System.out.println(resultSet.getString("ProductName"));
-    //        }
-    //    }catch (SQLException e){
-    //        e.printStackTrace();
-    //    }
-    //}

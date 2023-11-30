@@ -9,66 +9,69 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="993.0" prefWidth="1338.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorycontrolsystem.inventorycontrolsystem.ICSItemViewController">
-   <top>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="74.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+
+<AnchorPane fx:id="anchorItemLibrary" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorycontrolsystem.inventorycontrolsystem.ICSItemViewController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="993.0" prefWidth="1338.0">
+         <top>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="74.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <Text layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Library" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="95.0" prefWidth="1338.0">
+                     <children>
+                        <Button fx:id="bTItemLibrary" layoutX="14.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTItemLibraryPush" text="Item Library" />
+                        <Button fx:id="bTPushOverstock" layoutX="112.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTPushOverstockPush" text="Push Overstock" />
+                        <Button fx:id="bTPricingUpdates" layoutX="235.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTPricingUpdatesPush" text="Pricing Updates" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </top>
+         <center>
+            <AnchorPane prefHeight="815.0" prefWidth="1338.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Library" />
+                  <AnchorPane layoutX="271.0" layoutY="23.0" prefHeight="886.0" prefWidth="1050.0">
+                     <children>
+                        <TableView fx:id="InventoryTable" layoutY="29.0" onMouseClicked="#setSelectedTableValues" prefHeight="866.0" prefWidth="1050.0">
+                          <columns>
+                              <TableColumn fx:id="ProductID" prefWidth="79.19998359680176" text="Product ID" />
+                              <TableColumn fx:id="SKU" prefWidth="110.40001678466797" text="SKU" />
+                              <TableColumn fx:id="ProductName" prefWidth="196.0" text="Product Name" />
+                              <TableColumn fx:id="BrandID" minWidth="0.0" prefWidth="66.39996337890625" text="Brand ID" />
+                              <TableColumn fx:id="Category" prefWidth="101.60012817382812" text="Category" />
+                              <TableColumn fx:id="AisleLocation" prefWidth="89.5999755859375" text="Aisle Location" />
+                              <TableColumn fx:id="Quantity" prefWidth="87.199951171875" text="Quantity" />
+                              <TableColumn fx:id="Price" prefWidth="68.0" text="Price" />
+                              <TableColumn fx:id="Cost" prefWidth="65.5999755859375" text="Cost" />
+                              <TableColumn fx:id="Sales" prefWidth="78.4000244140625" text="Sales" />
+                              <TableColumn fx:id="ReorderLevel" prefWidth="104.7999267578125" text="Shelf Capacity" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <TextField fx:id="tfProductID" layoutX="15.0" layoutY="191.0" prefHeight="26.0" prefWidth="230.0" promptText="Product ID" />
+                  <Button fx:id="bTAdd" layoutX="22.0" layoutY="118.0" mnemonicParsing="false" onAction="#bTAddPush" text="Add" />
+                  <Button fx:id="bTUpdate" layoutX="105.0" layoutY="118.0" mnemonicParsing="false" onAction="#bTUpdatePush" text="Update" />
+                  <Button fx:id="bTDelete" layoutX="191.0" layoutY="118.0" mnemonicParsing="false" onAction="#btDeletePush" text="Delete" />
+                  <TextField fx:id="tfSKU" layoutX="15.0" layoutY="241.0" prefHeight="26.0" prefWidth="230.0" promptText="SKU" />
+                  <TextField fx:id="tfProductName" layoutX="15.0" layoutY="290.0" prefHeight="26.0" prefWidth="230.0" promptText="Product Name" />
+                  <TextField fx:id="tfBrandID" layoutX="15.0" layoutY="345.0" prefHeight="26.0" prefWidth="230.0" promptText="Brand ID" />
+                  <TextField fx:id="tfCategory" layoutX="15.0" layoutY="395.0" prefHeight="26.0" prefWidth="230.0" promptText="Category" />
+                  <TextField fx:id="tfAisleLocation" layoutX="15.0" layoutY="444.0" prefHeight="26.0" prefWidth="230.0" promptText="Aisle Location" />
+                  <TextField fx:id="tfQuantity" layoutX="15.0" layoutY="492.0" prefHeight="26.0" prefWidth="230.0" promptText="Quantity" />
+                  <TextField fx:id="tfPrice" layoutX="15.0" layoutY="541.0" prefHeight="26.0" prefWidth="230.0" promptText="Price" />
+                  <TextField fx:id="tfCost" layoutX="15.0" layoutY="596.0" prefHeight="26.0" prefWidth="230.0" promptText="Cost" />
+                  <TextField fx:id="tfSales" layoutX="15.0" layoutY="646.0" prefHeight="26.0" prefWidth="230.0" promptText="Sales" />
+                  <TextField fx:id="tfReorderLevel" layoutX="15.0" layoutY="695.0" prefHeight="26.0" prefWidth="230.0" promptText="Shelf Capacity" />
+                  <TextField fx:id="tFSearchBar" layoutX="57.0" layoutY="65.0" promptText="Search" style="-fx-border-color: grey;" />
+                  <Button fx:id="bTClear" layoutX="105.0" layoutY="766.0" mnemonicParsing="false" onAction="#bTClearPush" text="Clear" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="95.0" prefWidth="1338.0">
-               <children>
-                  <Button fx:id="bTItemLibrary" layoutX="14.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTItemLibraryPush" text="Item Library" />
-                  <Button fx:id="bTPushOverstock" layoutX="112.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTPushOverstockPush" text="Push Overstock" />
-                  <Button fx:id="btMerchandising" layoutX="451.0" layoutY="4.0" mnemonicParsing="false" onAction="#btMerchandisingPush" text="Merchandising" />
-                  <Button fx:id="bTSettings" layoutX="1260.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTSettingsPush" text="Settings" />
-                  <Button fx:id="bTCategories" layoutX="233.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTCategoriesPush" text="Categories" />
-                  <Button fx:id="bTPricingUpdates" layoutX="326.0" layoutY="4.0" mnemonicParsing="false" onAction="#bTPricingUpdatesPush" text="Pricing Updates" />
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-   </top>
-   <center>
-      <AnchorPane prefHeight="815.0" prefWidth="1338.0" BorderPane.alignment="CENTER">
-         <children>
-            <AnchorPane layoutX="271.0" layoutY="23.0" prefHeight="886.0" prefWidth="1050.0">
-               <children>
-                  <TableView fx:id="InventoryTable" layoutY="29.0" onMouseClicked="#setSelectedTableValues" prefHeight="866.0" prefWidth="1050.0">
-                    <columns>
-                        <TableColumn fx:id="ProductID" prefWidth="79.19998359680176" text="Product ID" />
-                        <TableColumn fx:id="SKU" prefWidth="110.40001678466797" text="SKU" />
-                        <TableColumn fx:id="ProductName" prefWidth="196.0" text="Product Name" />
-                        <TableColumn fx:id="BrandID" minWidth="0.0" prefWidth="66.39996337890625" text="Brand ID" />
-                        <TableColumn fx:id="Category" prefWidth="101.60012817382812" text="Category" />
-                        <TableColumn fx:id="AisleLocation" prefWidth="89.5999755859375" text="Aisle Location" />
-                        <TableColumn fx:id="Quantity" prefWidth="87.199951171875" text="Quantity" />
-                        <TableColumn fx:id="Price" prefWidth="68.0" text="Price" />
-                        <TableColumn fx:id="Cost" prefWidth="65.5999755859375" text="Cost" />
-                        <TableColumn fx:id="Sales" prefWidth="78.4000244140625" text="Sales" />
-                        <TableColumn fx:id="ReorderLevel" prefWidth="104.7999267578125" text="Reorder Level" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-            <TextField fx:id="tfProductID" layoutX="15.0" layoutY="191.0" prefHeight="26.0" prefWidth="230.0" promptText="Product ID" />
-            <Button fx:id="bTAdd" layoutX="22.0" layoutY="118.0" mnemonicParsing="false" onAction="#bTAddPush" text="Add" />
-            <Button fx:id="bTUpdate" layoutX="105.0" layoutY="118.0" mnemonicParsing="false" onAction="#bTUpdatePush" text="Update" />
-            <Button fx:id="bTDelete" layoutX="191.0" layoutY="118.0" mnemonicParsing="false" onAction="#btDeletePush" text="Delete" />
-            <TextField fx:id="tfSKU" layoutX="15.0" layoutY="241.0" prefHeight="26.0" prefWidth="230.0" promptText="SKU" />
-            <TextField fx:id="tfProductName" layoutX="15.0" layoutY="290.0" prefHeight="26.0" prefWidth="230.0" promptText="Product Name" />
-            <TextField fx:id="tfBrandID" layoutX="15.0" layoutY="345.0" prefHeight="26.0" prefWidth="230.0" promptText="Brand ID" />
-            <TextField fx:id="tfCategory" layoutX="15.0" layoutY="395.0" prefHeight="26.0" prefWidth="230.0" promptText="Category" />
-            <TextField fx:id="tfAisleLocation" layoutX="15.0" layoutY="444.0" prefHeight="26.0" prefWidth="230.0" promptText="Aisle Location" />
-            <TextField fx:id="tfQuantity" layoutX="15.0" layoutY="492.0" prefHeight="26.0" prefWidth="230.0" promptText="Quantity" />
-            <TextField fx:id="tfPrice" layoutX="15.0" layoutY="541.0" prefHeight="26.0" prefWidth="230.0" promptText="Price" />
-            <TextField fx:id="tfCost" layoutX="15.0" layoutY="596.0" prefHeight="26.0" prefWidth="230.0" promptText="Cost" />
-            <TextField fx:id="tfSales" layoutX="15.0" layoutY="646.0" prefHeight="26.0" prefWidth="230.0" promptText="Sales" />
-            <TextField fx:id="tfReorderLevel" layoutX="15.0" layoutY="695.0" prefHeight="26.0" prefWidth="230.0" promptText="Reorder Level" />
-            <TextField fx:id="tFSearchBar" layoutX="57.0" layoutY="65.0" promptText="Search" style="-fx-border-color: grey;" />
-         </children>
-      </AnchorPane>
-   </center>
-</BorderPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
