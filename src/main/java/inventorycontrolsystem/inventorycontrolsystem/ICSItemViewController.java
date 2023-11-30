@@ -185,6 +185,19 @@ public class ICSItemViewController implements Initializable {
         }
     }
 
+    public void deleteDatabaseEntry() { // Delete entry based on Product ID
+        Connection connection = SQLConnector.connectToDB();
+        String sqlStatement = "DELETE FROM inventorysystemdatabase WHERE ProductID = ?";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setString(1, tfProductID.getText());
+            preparedStatement.execute();
+            updateTableView();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
     public void updateTableView() { // Initialize table view with values from database
         ObservableList<InventoryItems> observableList;
         ProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
@@ -221,19 +234,6 @@ public class ICSItemViewController implements Initializable {
         tfPrice.setText(Price.getCellData(index).toString());
         tfCost.setText(Cost.getCellData(index).toString());
         tfSales.setText(Sales.getCellData(index).toString());
-    }
-
-    public void deleteDatabaseEntry() { // Delete entry based on Product ID
-        Connection connection = SQLConnector.connectToDB();
-        String sqlStatement = "DELETE FROM inventorysystemdatabase WHERE ProductID = ?";
-        try{
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
-            preparedStatement.setString(1, tfProductID.getText());
-            preparedStatement.execute();
-            updateTableView();
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
     }
 
     // Functionality for search bar, compare each value of the class to the search text.
